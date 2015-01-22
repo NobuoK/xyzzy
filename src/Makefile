@@ -198,7 +198,7 @@ CFG=r
 
 OUTDIR=d
 OBJS=$(OBJS: = d/)
-CXXFLAGS=-Od -Gz -Gs -Gy -Gm $(CXXOPT) -W3 -MTd -Zi -Fp$(OUTDIR)/xyzzy.pch $(INC) $(DEFS) -DDEBUG -Fo$(OUTDIR)/
+CXXFLAGS=-Od -Gz -Gs -Gy -Gm $(CXXOPT) -W3 -MTd -Zi $(INC) $(DEFS) -DDEBUG -Fo$(OUTDIR)/
 LDFLAGS=-debug -stack:0x2000000 -incremental:yes -nxcompat
 LIBS=$(LIBS) $(ZLIBDIR)/Debug/zlib.lib
 FINAL_TARGET=$(OUTDIR)/$(BUILD)
@@ -207,7 +207,7 @@ FINAL_TARGET=$(OUTDIR)/$(BUILD)
 
 OUTDIR=r
 OBJS=$(OBJS: = r/)
-CXXFLAGS=-Ob2 -O2 -Oi -Ot -Oy -Gs -Gy -Gz -GA $(CXXOPT) -W3 -MT -vmb -Fp$(OUTDIR)/xyzzy.pch $(INC) $(DEFS) -Fo$(OUTDIR)/
+CXXFLAGS=-Ob2 -O2 -Oi -Ot -Oy -Gs -Gy -Gz -GA $(CXXOPT) -W3 -MT -vmb $(INC) $(DEFS) -Fo$(OUTDIR)/
 LDFLAGS=-stack:0x2000000 -map:$(OUTDIR)/xyzzy.map -incremental:no -fixed -opt:ref -nxcompat
 LIBS=$(LIBS) $(ZLIBDIR)/Release/zlib.lib
 FINAL_TARGET=../$(BUILD)
@@ -215,16 +215,16 @@ FINAL_TARGET=../$(BUILD)
 !ENDIF
 
 .cc{$(OUTDIR)/}.obj::
-	$(CXX) $(CXXFLAGS) -Yustdafx.h -c -TP $<
+	$(CXX) $(CXXFLAGS) -c -TP $<
 
 {$(GENDIR)/}.cc{$(OUTDIR)/}.obj::
 	$(CXX) $(CXXFLAGS) -c -TP $<
 
 {$(PRIVCTRLDIR)/}.cc{$(OUTDIR)/}.obj::
-	$(CXX) $(CXXFLAGS) -Yustdafx.h -c -TP $<
+	$(CXX) $(CXXFLAGS) -c -TP $<
 
 {$(DSFMTDIR)/}.cc{$(OUTDIR)/}.obj::
-	$(CXX) $(CXXFLAGS) -Yustdafx.h -c -TP $<
+	$(CXX) $(CXXFLAGS) -c -TP $<
 
 .rc.res:
 	rc -r $<
@@ -236,7 +236,7 @@ all: $(OUTDIR) $(GENDIR) $(GENDIRSRCS) ../xyzzyenv.exe \
      $(FINAL_TARGET) ../xyzzycli.exe libxpi.lib
 
 $(OUTDIR)/xyzzy.pch: stdafx.h targetver.h stdint_compat.h
-	$(CXX) $(CXXFLAGS) -Ycstdafx.h -c -Tpstdafx.cc
+	$(CXX) $(CXXFLAGS) -c -Tpstdafx.cc
 
 $(OUTDIR)/$(BUILD): $(OBJS) $(PRIVCTRLOBJS) $(DSFMTOBJS) $(GENOBJS) $(OUTDIR)/xyzzy.res
 	$(LD) @<<
@@ -459,11 +459,11 @@ rebuild-gen:
 	del ucs2tab.h lucida-width.h jisx0212-width.h fontrange.h
 	$(MAKE) ucs2tab.h lucida-width.h jisx0212-width.h fontrange.h
 
-GEN_CXXFLAGS=-MT -Fp$(GENDIR)/gen-stdafx.pch -I$(GENDIR)
+GEN_CXXFLAGS=-MT -I$(GENDIR)
 $(GENDIR)/gen-stdafx.pch: gen-stdafx.h targetver.h cdecl.h charset.h
 	$(CXX) $(GEN_CXXFLAGS) -Fo$(GENDIR)/ -Ycgen-stdafx.h -c -Tpgen-stdafx.cc
 .cc{$(GENDIR)/}.obj::
-	$(CXX) $(GEN_CXXFLAGS) -Fo$(GENDIR)/ -Yugen-stdafx.h -c -TP $<
+	$(CXX) $(GEN_CXXFLAGS) -Fo$(GENDIR)/ -c -TP $<
 
 $(GEN_SRC1_EXE): $(GENDIR)/gen-src1.obj $(GEN_SRC1_OBJS)
 	$(CXX) -MT -Fe$@ $(GENDIR)/gen-src1.obj $(GEN_SRC1_OBJS) user32.lib gdi32.lib
@@ -491,7 +491,7 @@ $(GENDIR)/gen-utf2sjis.obj:
 $(GENDIR)/gen-fontrange.obj:
 $(GENDIR)/gen-iso2022state.obj:
 $(GENDIR)/dpp.obj:
-$(GEN_SRC1_OBJS) $(GEN_SRC2_OBJS): $(GENDIR)/gen-stdafx.pch
+#$(GEN_SRC1_OBJS) $(GEN_SRC2_OBJS): $(GENDIR)/gen-stdafx.pch
 
 DEPENDTEMP=tmp.depend
 depend: ../misc/makedep.py
