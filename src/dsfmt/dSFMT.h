@@ -98,7 +98,9 @@ extern "C" {
 #    endif
 #    define DSFMT_UINT32_DEFINED
 #    if !defined(inline)
+#if defined(_MSC_VER) && _MSC_VER < 1600
 #      define inline __inline
+#endif
 #    endif
 #  endif
 #else
