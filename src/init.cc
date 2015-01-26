@@ -1112,8 +1112,13 @@ init_app(HINSTANCE hinst, ApplicationFrame* app1, ApplicationFrame* parent)
   if(safe_fixnum_value(xsymbol_value(Vframe_init_height), &tmp))
 	  cy = tmp;
 
+#if defined(_MSC_VER) && _MSC_VER < 1600
+  cx = std::max(cx, 20L);
+  cy = std::max(cy, 20L);
+#else
   cx = max(cx, 20L);
   cy = max(cy, 20L);
+#endif
 
   app1->toplev = CreateWindow (Application::ToplevelClassName, TitleBarString,
                              WS_OVERLAPPEDWINDOW,
