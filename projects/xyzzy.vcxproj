@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -21,14 +21,14 @@
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <GenerateDebugInformation>true</GenerateDebugInformation>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>NotSet</CharacterSet>
-    <PlatformToolset>v100</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <GenerateDebugInformation>true</GenerateDebugInformation>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -82,15 +82,14 @@
       <AdditionalDependencies>comctl32.lib;imm32.lib;mpr.lib;rpcrt4.lib;wsock32.lib;crypt32.lib;secur32.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)src\zlib\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>$(GenerateDebugInformation)</GenerateDebugInformation>
-      <SubSystem>NotSet</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <StackReserveSize>0x2000000</StackReserveSize>
       <TargetMachine>MachineX86</TargetMachine>
       <IgnoreSpecificDefaultLibraries>LIBCMT</IgnoreSpecificDefaultLibraries>
       <DataExecutionPrevention>true</DataExecutionPrevention>
-      <AdditionalOptions>/SUBSYSTEM:WINDOWS,5.0 %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>editbin /subsystem:windows,5.0 $(OutDir)$(TargetName)$(TargetExt)</Command>
+      <Command>editbin /subsystem:windows $(OutDir)$(TargetName)$(TargetExt)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -132,10 +131,10 @@
       <StackReserveSize>0x2000000</StackReserveSize>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
-      <AdditionalOptions>/SUBSYSTEM:WINDOWS,5.0 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/SUBSYSTEM:WINDOWS %(AdditionalOptions)</AdditionalOptions>
     </Link>
     <PostBuildEvent>
-      <Command>editbin /subsystem:windows,5.0 $(OutDir)$(TargetName)$(TargetExt)</Command>
+      <Command>editbin /subsystem:windows $(OutDir)$(TargetName)$(TargetExt)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -172,7 +171,10 @@
     <ClCompile Include="..\src\DnD.cc" />
     <ClCompile Include="..\src\doc.cc" />
     <ClCompile Include="..\src\dockbar.cc" />
-    <ClCompile Include="..\src\dsfmt\dSFMT.cc" />
+    <ClCompile Include="..\src\dsfmt\dSFMT.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\edict.cc" />
     <ClCompile Include="..\src\encdec.cc" />
     <ClCompile Include="..\src\encoding.cc" />
@@ -184,6 +186,10 @@
     <ClCompile Include="..\src\fnkey.cc" />
     <ClCompile Include="..\src\font.cc" />
     <ClCompile Include="..\src\frame.cc" />
+    <ClCompile Include="..\src\gen\symtable.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\gime.cc" />
     <ClCompile Include="..\src\glob.cc" />
     <ClCompile Include="..\src\guess.cc" />
@@ -222,9 +228,18 @@
     <ClCompile Include="..\src\preview.cc" />
     <ClCompile Include="..\src\print.cc" />
     <ClCompile Include="..\src\printdlg.cc" />
-    <ClCompile Include="..\src\privctrl\listviewex.cc" />
-    <ClCompile Include="..\src\privctrl\privctrl.cc" />
-    <ClCompile Include="..\src\privctrl\url.cc" />
+    <ClCompile Include="..\src\privctrl\listviewex.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\src\privctrl\privctrl.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="..\src\privctrl\url.cc">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="..\src\process.cc" />
     <ClCompile Include="..\src\random.cc" />
     <ClCompile Include="..\src\regex.cc" />
@@ -247,7 +262,6 @@
     <ClCompile Include="..\src\string.cc" />
     <ClCompile Include="..\src\structure.cc" />
     <ClCompile Include="..\src\symbol.cc" />
-    <ClCompile Include="..\src\symtable.cc" />
     <ClCompile Include="..\src\syntax.cc" />
     <ClCompile Include="..\src\sysdep.cc" />
     <ClCompile Include="..\src\system.cc" />
