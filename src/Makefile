@@ -176,8 +176,8 @@ ASM=ml -nologo
 ASMFLAGS=-DVCVER=$(VCVER)
 EDITBIN=editbin -nologo
 EDITBIN_OPTS=
-SUBSYS_WINDOWS=/SUBSYSTEM:WINDOWS,5.0
-SUBSYS_CONSOLE=/SUBSYSTEM:CONSOLE,5.0
+SUBSYS_WINDOWS=/SUBSYSTEM:WINDOWS
+SUBSYS_CONSOLE=/SUBSYSTEM:CONSOLE
 LD=link -nologo
 LIBS=kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib \
 comctl32.lib imm32.lib setargv.obj comdlg32.lib mpr.lib ole32.lib \

@@ -66,8 +66,9 @@
     <Link>
       <GenerateDebugInformation>$(GenerateDebugInformation)</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>
-      <AdditionalOptions>/SUBSYSTEM:CONSOLE,5.0 %(AdditionalOptions)</AdditionalOptions>
-      <MinimumRequiredVersion>5</MinimumRequiredVersion>
+      <AdditionalOptions>/SUBSYSTEM:CONSOLE %(AdditionalOptions)</AdditionalOptions>
+      <MinimumRequiredVersion>
+      </MinimumRequiredVersion>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -88,7 +89,7 @@
       <SubSystem>Console</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <AdditionalOptions>/SUBSYSTEM:CONSOLE,5.0 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>/SUBSYSTEM:CONSOLE %(AdditionalOptions)</AdditionalOptions>
       <MinimumRequiredVersion>5</MinimumRequiredVersion>
     </Link>
   </ItemDefinitionGroup>
